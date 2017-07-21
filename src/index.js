@@ -39,8 +39,8 @@ var handlers = {
     },
     'RandQuotesIntent': function () {
         var typeIndex = Math.floor(Math.random() * 2);
-        var quoteArr = files[typeIndex]
-        var quoteLink = links[typeIndex]
+        var quoteArr = files[typeIndex];
+        var quoteLink = links[typeIndex];
         var quoteIndex = Math.floor(Math.random() * quoteArr.length);
         var randomQuote = quoteArr[quoteIndex];
         var speechOutput = quoteLink.concat(randomQuote);
