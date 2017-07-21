@@ -1,4 +1,6 @@
 'use strict';
+var ssml = require('ssml');
+var ssmlDoc = new ssml();
 
 const Alexa = require('alexa-sdk');
 
@@ -8,7 +10,8 @@ var HELP_MESSAGE = "Ask me for motivation or to rate your dish";
 var HELP_REPROMPT = "What can I help you with?";
 var STOP_MESSAGE = "Goodbye!";
 
-var quotes = [] // TODO: add calls to s3 for mp3 files
+var mean_quotes = [] // TODO: add calls to s3 for mp3 files
+var nice_quotes = []
 
 var handlers = {
     'LaunchRequest': function () {
