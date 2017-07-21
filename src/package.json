@@ -1,0 +1,28 @@
+{
+  "name": "Gordon Ramsay",
+  "version": "1.0.0",
+  "description": "A cook's motivation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewcheung8/HellsKitchen.git"
+  },
+  "keywords": [
+    "hellskitchen",
+    "gordonramsay",
+    "alexa",
+    "skill"
+  ],
+  "author": "Amazon.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/matthewcheung8/HellsKitchen/issues"
+  },
+  "homepage": "https://github.com/matthewcheung8/HellsKitchen/blob/master/README.md",
+  "dependencies": {
+    "alexa-sdk": "^1.0.0"
+  }
+}
