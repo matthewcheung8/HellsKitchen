@@ -1,23 +1,42 @@
 'use strict';
-console.log('Loading function');
 
 const Alexa = require('alexa-sdk');
 
-exports.handler = function(event, context, callback) {
-    //console.log('Received event:', JSON.stringify(event, null, 2));
-    console.log('value1 =', event.key1);
-    console.log('value2 =', event.key2);
-    console.log('value3 =', event.key3);
-    console.log('remaining time =', context.getRemainingTimeInMillis());
-    console.log('functionName =', context.functionName);
-    console.log('AWSrequestID =', context.awsRequestId);
-    console.log('logGroupName =', context.logGroupName);
-    console.log('logStreamName =', context.logStreamName);
-    console.log('clientContext =', context.clientContext);
-    if (typeof context.identity !== 'undefined') {
-        console.log('Cognito identity ID =', context.identity.cognitoIdentityId);
+const APP_ID = undefined;  // TODO replace with your app ID (OPTIONAL).
+const SKILL_NAME = "Hell's Kitchen";
+var HELP_MESSAGE = "Ask me for motivation or to rate your dish";
+var HELP_REPROMPT = "What can I help you with?";
+var STOP_MESSAGE = "Goodbye!";
+
+var quotes = [] // TODO: add calls to s3 for mp3 files
+
+var handlers = {
+    'LaunchRequest': function () {
+        this.emit('GetNewQuoteIntent');
+    },
+    'GetNewQuoteIntent': function () {
+        var quoteArr = quotes;
+        var quoteIndex = Math.floor(Math.random() * quoteArr.length);
+        var randomQuote= quoteArr[quoteIndex];
+        var speechOutput = randomQuote;
+        this.emit(':tellWithCard', speechOutput, SKILL_NAME, randomQuote)
+    },
+    'AMAZON.HelpIntent': function () {
+        var speechOutput = HELP_MESSAGE;
+        var reprompt = HELP_REPROMPT;
+        this.emit(':ask', speechOutput, reprompt);
+    },
+    'AMAZON.CancelIntent': function () {
+        this.emit(':tell', STOP_MESSAGE);
+    },
+    'AMAZON.StopIntent': function () {
+        this.emit(':tell', STOP_MESSAGE);
     }
-    callback(null, event.key1); // Echo back the first key value
-    // or
-    // callback("some error type");
+};
+
+exports.handler = function(event, context, callback) {
+    var alexa = Alexa.handler(event, context);
+    alexa.APP_ID = APP_ID;
+    alexa.registerHandlers(handlers);
+    alexa.execute();
 };
